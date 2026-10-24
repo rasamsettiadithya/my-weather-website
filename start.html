@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Weather</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+            color: #16324f;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(255, 214, 120, 0.45), transparent 32%),
+                radial-gradient(circle at 90% 0%, rgba(120, 190, 255, 0.55), transparent 36%),
+                linear-gradient(180deg, #e7f3ff 0%, #f7fbff 48%, #eef6f2 100%);
+        }
+        .page { width: min(720px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0 80px; }
+        .eyebrow { margin-bottom: 10px; color: #0f6e8c; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+        h1 { font-size: clamp(36px, 5vw, 52px); line-height: 1.05; letter-spacing: -0.04em; }
+        .intro-copy { margin-top: 14px; max-width: 540px; color: #46627a; font-size: 18px; line-height: 1.5; }
+        .choices { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; border: 0; padding: 0; }
+        .choice {
+            display: flex; align-items: center; gap: 12px;
+            padding: 16px 18px; border-radius: 18px;
+            background: rgba(255, 255, 255, 0.78); font-weight: 600; cursor: pointer;
+        }
+        .choice input { width: 18px; height: 18px; accent-color: #0f6e8c; }
+        .choice small { display: block; margin-top: 2px; color: #5d7690; font-weight: 500; }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+        button, .open-link {
+            padding: 14px 28px; border: 0; border-radius: 999px;
+            font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; text-decoration: none;
+        }
+        .start { background: #0f6e8c; color: white; }
+        .stop { background: #8a3b3b; color: white; }
+        .open-link { background: white; color: #0f6e8c; }
+        button:disabled, .open-link.is-disabled { cursor: not-allowed; opacity: 0.45; pointer-events: none; }
+        .status { min-height: 24px; margin-top: 18px; font-size: 16px; font-weight: 600; }
+        .ports { margin-top: 8px; color: #46627a; font-size: 14px; }
+        .addresses { margin-top: 28px; }
+        .addresses p { margin-top: 14px; color: #0f6e8c; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+        .addresses a { display: inline-block; margin-top: 6px; color: #16324f; font-size: 16px; font-weight: 600; }
+        .addresses pre {
+            margin-top: 8px; padding: 14px 16px; border-radius: 16px;
+            background: rgba(255, 255, 255, 0.78); color: #16324f;
+            font-size: 14px; line-height: 1.5; overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <p class="eyebrow">Runtime</p>
+        <h1>Start the weather app</h1>
+        <p class="intro-copy">
+            Frontend is the page. Backend is the weather API. Stop frees both ports so the next start is clean.
+        </p>
+        <fieldset class="choices">
+            <label class="choice">
+                <input type="checkbox" id="frontend" checked>
+                <span>Frontend<small>Weather page on port 8000</small></span>
+            </label>
+            <label class="choice">
+                <input type="checkbox" id="backend" checked>
+                <span>Backend<small>POST /weather on port 8001</small></span>
+            </label>
+        </fieldset>
+        <div class="actions">
+            <button type="button" class="start" id="start">Start</button>
+            <button type="button" class="stop" id="stop">Stop</button>
+            <a class="open-link is-disabled" id="open-weather" href="http://127.0.0.1:8000/weather.html">Open weather page</a>
+        </div>
+        <p id="file-hint" class="status" hidden>
+            <a href="http://127.0.0.1:8090/">Open the live control page</a>
+        </p>
+        <p id="status" class="status" role="status"></p>
+        <p id="ports" class="ports"></p>
+        <section class="addresses" aria-label="Addresses">
+            <p>Frontend</p>
+            <a href="http://127.0.0.1:8000/weather.html">http://127.0.0.1:8000/weather.html</a>
+            <p>Backend</p>
+            <a href="http://127.0.0.1:8001/weather">http://127.0.0.1:8001/weather</a>
+            <pre>{
+  "cities": ["hyderabad", "delhi"]
+}</pre>
+        </section>
+    </main>
+    <script>
+        const startButton = document.querySelector("#start");
+        const stopButton = document.querySelector("#stop");
+        const status = document.querySelector("#status");
+        const ports = document.querySelector("#ports");
+        const openLink = document.querySelector("#open-weather");
+
+        if (location.protocol === "file:") {
+            document.querySelector("#file-hint").hidden = false;
+            location.replace("http://127.0.0.1:8090/");
+        }
+
+        startButton.addEventListener("click", startSelected);
+        stopButton.addEventListener("click", stopAll);
+        refreshStatus();
+
+        async function startSelected() {
+            const body = {
+                frontend: document.querySelector("#frontend").checked,
+                backend: document.querySelector("#backend").checked
+            };
+            await post("/start", body);
+        }
+
+        async function stopAll() {
+            await post("/stop", {});
+        }
+
+        async function post(path, body) {
+            startButton.disabled = true;
+            stopButton.disabled = true;
+            status.textContent = "";
+            try {
+                const response = await fetch(path, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+                const data = await response.json();
+                if (!response.ok) {
+                    status.textContent = data.error || "The request failed.";
+                } else if (path === "/start") {
+                    status.textContent = "Started.";
+                }
+                paintStatus(data.status || data);
+            } catch (error) {
+                status.textContent = "Port 8090 is not answering, so Start and Stop cannot run.";
+            } finally {
+                startButton.disabled = false;
+                stopButton.disabled = false;
+            }
+        }
+
+        async function refreshStatus() {
+            try {
+                const response = await fetch("/status");
+                paintStatus(await response.json());
+            } catch (error) {
+                status.textContent = "Port 8090 is not answering, so Start and Stop cannot run.";
+            }
+        }
+
+        function paintStatus(data) {
+            if (!data.frontend || !data.backend) {
+                return;
+            }
+            const frontend = data.frontend.running ? "Frontend is listening on port " + data.frontend.port + "." : "Frontend is stopped.";
+            const backend = data.backend.running ? "Backend is listening on port " + data.backend.port + "." : "Backend is stopped.";
+            ports.textContent = frontend + " " + backend;
+            openLink.classList.toggle("is-disabled", !data.frontend.running);
+            if (!data.frontend.running && !data.backend.running) {
+                status.textContent = "Ports " + data.frontend.port + " and " + data.backend.port + " are free.";
+            }
+        }
+    </script>
+</body>
+</html>

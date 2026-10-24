@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Weather</title>
+    <link rel="stylesheet" href="weather.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="page">
+        <header class="intro">
+            <p class="eyebrow">Local weather</p>
+            <h1>Check the weather in the cities you choose</h1>
+            <p class="intro-copy">
+                Select any cities. The page sends those names, and the backend compares only those.
+            </p>
+            <fieldset class="city-choices">
+                <legend>Cities</legend>
+                <label class="choice"><input type="checkbox" name="city" value="hyderabad"> Hyderabad</label>
+                <label class="choice"><input type="checkbox" name="city" value="visakhapatnam"> Visakhapatnam</label>
+                <label class="choice"><input type="checkbox" name="city" value="denver"> Denver, USA</label>
+                <label class="choice"><input type="checkbox" name="city" value="melbourne"> Melbourne, Australia</label>
+                <label class="choice"><input type="checkbox" name="city" value="delhi"> Delhi, India</label>
+            </fieldset>
+            <button type="button" id="check-weather" class="check-button">
+                Check Weather
+            </button>
+            <p id="status" class="status" role="status"></p>
+        </header>
+
+        <section class="cities" aria-label="City weather">
+            <article class="city-card is-hidden" id="hyderabad">
+                <p class="city-label">City 1</p>
+                <h2>Hyderabad</h2>
+                <p class="city-region">Telangana, India</p>
+                <div class="weather-slot">
+                    <p class="placeholder">Weather shows here after you check.</p>
+                </div>
+            </article>
+            <article class="city-card is-hidden" id="visakhapatnam">
+                <p class="city-label">City 2</p>
+                <h2>Visakhapatnam</h2>
+                <p class="city-region">Andhra Pradesh, India</p>
+                <div class="weather-slot">
+                    <p class="placeholder">Weather shows here after you check.</p>
+                </div>
+            </article>
+            <article class="city-card is-hidden" id="denver">
+                <p class="city-label">City 3</p>
+                <h2>Denver</h2>
+                <p class="city-region">Colorado, USA</p>
+                <div class="weather-slot">
+                    <p class="placeholder">Weather shows here after you check.</p>
+                </div>
+            </article>
+            <article class="city-card is-hidden" id="melbourne">
+                <p class="city-label">City 4</p>
+                <h2>Melbourne</h2>
+                <p class="city-region">Victoria, Australia</p>
+                <div class="weather-slot">
+                    <p class="placeholder">Weather shows here after you check.</p>
+                </div>
+            </article>
+            <article class="city-card is-hidden" id="delhi">
+                <p class="city-label">City 5</p>
+                <h2>Delhi</h2>
+                <p class="city-region">India</p>
+                <div class="weather-slot">
+                    <p class="placeholder">Weather shows here after you check.</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="call-preview" aria-label="Backend call">
+            <h2>Request the page sends</h2>
+            <p class="request-line">POST http://127.0.0.1:8001/weather</p>
+            <pre id="request-json"></pre>
+            <h2>JSON the backend returns</h2>
+            <pre id="response-json">Click Check Weather to see the reply.</pre>
+            <h2>Each call</h2>
+            <div class="table-wrap">
+                <table id="call-table">
+                    <thead>
+                        <tr>
+                            <th>Call</th>
+                            <th>Protocol</th>
+                            <th>Method</th>
+                            <th>Request</th>
+                            <th>Response</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="weather.js"></script>
+</body>
+</html>
