@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "/bin/zsh",
+      "args": [
+        "/Users/adithya/weather-website/.cursor/start-mcp.sh",
+        "https://api.githubcopilot.com/mcp/",
+        "GITHUB_PERSONAL_ACCESS_TOKEN"
+      ]
+    },
+    "render": {
+      "command": "/bin/zsh",
+      "args": [
+        "/Users/adithya/weather-website/.cursor/start-mcp.sh",
+        "https://mcp.render.com/mcp",
+        "RENDER_API_KEY"
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+---
+description: Keep the weather architecture note in sync with code changes
+globs: weather/**/*
+alwaysApply: false
+---
+
+# Weather architecture note
+
+When you change the weather app under `weather/`, update `weather/ARCHITECTURE.md` in the same change.
+
+Cover anything a reader would get wrong if the note stayed stale: folders, ports, how to start and stop, the frontend request, the backend response, and the Open-Meteo calls. Keep the note in plain language and match the code that is actually running.

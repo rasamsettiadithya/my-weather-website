@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API &amp; Web Concepts Quiz — Level 2</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            line-height: 1.55;
+            color: #16324f;
+            background: linear-gradient(180deg, #e7f3ff 0%, #f7fbff 100%);
+            min-height: 100vh;
+            padding: 32px 16px 48px;
+        }
+        .wrap { max-width: 680px; margin: 0 auto; }
+        h1 { font-size: 1.5rem; margin-bottom: 6px; }
+        .level { color: #0f6e8c; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+        .intro { color: #46627a; font-size: 0.95rem; margin-bottom: 20px; }
+        .pager {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .pager button {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid #b8d4e3;
+            border-radius: 10px;
+            background: #fff;
+            color: #24516a;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .pager button.active {
+            background: #0f6e8c;
+            border-color: #0f6e8c;
+            color: #fff;
+        }
+        .page { display: none; }
+        .page.active { display: block; }
+        form { display: flex; flex-direction: column; gap: 24px; }
+        .question {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 12px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 16px rgba(40, 80, 110, 0.06);
+        }
+        .question legend { font-weight: 600; margin-bottom: 12px; padding: 0; }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.93rem;
+        }
+        .options input { margin-top: 5px; flex-shrink: 0; }
+        .actions {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        button[type="submit"] {
+            padding: 12px 24px;
+            border: 0;
+            border-radius: 999px;
+            background: #0f6e8c;
+            color: #fff;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover { background: #0c5b74; }
+        button[type="reset"] {
+            padding: 12px 20px;
+            border: 1px solid #b8d4e3;
+            border-radius: 999px;
+            background: #fff;
+            color: #24516a;
+            font: inherit;
+            cursor: pointer;
+        }
+        #result {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        #result.visible { display: block; }
+        #result .correct { color: #1a6b3a; }
+        #result .wrong { color: #8a3b3b; }
+        #result .hint {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #5d7690;
+        }
+        .answer-list { display: flex; flex-direction: column; gap: 20px; }
+        .answer-item {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 12px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 16px rgba(40, 80, 110, 0.06);
+        }
+        .answer-item h2 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+        .answer-item .letter {
+            display: inline-block;
+            font-weight: 700;
+            color: #0f6e8c;
+            margin-right: 6px;
+        }
+        .answer-item p { font-size: 0.92rem; color: #3d5569; }
+        code { font-size: 0.88em; background: #e7f4fb; padding: 1px 5px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <p class="level">Level 2</p>
+        <h1>API &amp; web concepts — 15 questions</h1>
+        <p class="intro">Page 1: answer all questions and submit for your score only. Page 2: full answer key with explanations. Try the quiz before opening Page 2.</p>
+
+        <nav class="pager" aria-label="Quiz pages">
+            <button type="button" id="tab-quiz" class="active" aria-current="page">Page 1 — Quiz</button>
+            <button type="button" id="tab-answers">Page 2 — Answers</button>
+        </nav>
+
+        <section id="page-quiz" class="page active" aria-labelledby="tab-quiz">
+            <form id="quiz">
+                <fieldset class="question">
+                    <legend>1. A client sends <code>GET /api/orders/42</code> twice. The server should return the same order data and not create a second order. This property is called:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="A"> A. Stateful session binding</label>
+                        <label><input type="radio" name="q1" value="B"> B. Idempotency (for safe methods like GET, repeating the call should not change server-side state)</label>
+                        <label><input type="radio" name="q1" value="C"> C. CORS preflight</label>
+                        <label><input type="radio" name="q1" value="D"> D. JSON serialization</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>2. Status <strong>401 Unauthorized</strong> vs <strong>403 Forbidden</strong> — which pairing is most accurate?</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="A"> A. 401 = wrong URL; 403 = server is down</label>
+                        <label><input type="radio" name="q2" value="B"> B. 401 = authentication failed or missing; 403 = authenticated but not allowed to access this resource</label>
+                        <label><input type="radio" name="q2" value="C"> C. They mean the same thing</label>
+                        <label><input type="radio" name="q2" value="D"> D. 401 is only for GET; 403 is only for POST</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>3. Your backend successfully calls Open-Meteo, but Open-Meteo returns an error or times out. Your API responds with <strong>502 Bad Gateway</strong>. That usually means:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="A"> A. The browser sent malformed JSON</label>
+                        <label><input type="radio" name="q3" value="B"> B. Your server acted as a proxy/gateway and got an invalid or failed response from an upstream service it depends on</label>
+                        <label><input type="radio" name="q3" value="C"> C. The user’s password was wrong</label>
+                        <label><input type="radio" name="q3" value="D"> D. The TCP port 443 is closed on the client laptop</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>4. Before a browser sends <code>POST</code> with <code>Content-Type: application/json</code> from <code>http://localhost:8000</code> to <code>http://localhost:8001</code>, it may send <code>OPTIONS</code> first. That <code>OPTIONS</code> request is mainly for:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="A"> A. Fetching the JSON body early</label>
+                        <label><input type="radio" name="q4" value="B"> B. CORS preflight — asking the server which origins, methods, and headers are allowed for cross-origin requests</label>
+                        <label><input type="radio" name="q4" value="C"> C. Encrypting the POST body</label>
+                        <label><input type="radio" name="q4" value="D"> D. Converting GET into POST</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>5. An <strong>origin</strong> in the browser security model is made up of:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="A"> A. Only the path, e.g. <code>/weather</code></label>
+                        <label><input type="radio" name="q5" value="B"> B. Scheme + host + port (e.g. <code>http://127.0.0.1:8000</code> is a different origin than <code>http://127.0.0.1:8001</code>)</label>
+                        <label><input type="radio" name="q5" value="C"> C. Only the domain name, ignoring port</label>
+                        <label><input type="radio" name="q5" value="D"> D. The JSON keys in the request body</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>6. Why is putting a large JSON document in the body of a <strong>GET</strong> request a bad idea in practice?</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="A"> A. GET cannot use TCP</label>
+                        <label><input type="radio" name="q6" value="B"> B. GET is defined for reads with parameters usually in the URL; many clients, caches, and servers ignore or reject GET bodies, and URLs have length limits</label>
+                        <label><input type="radio" name="q6" value="C"> C. JSON only works with POST</label>
+                        <label><input type="radio" name="q6" value="D"> D. HTTPS forbids GET</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>7. <code>Content-Type: application/json</code> on a request tells the server:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="A"> A. The response must be HTML</label>
+                        <label><input type="radio" name="q7" value="B"> B. The bytes in the request body are JSON text and should be parsed as JSON</label>
+                        <label><input type="radio" name="q7" value="C"> C. The client wants gzip compression only</label>
+                        <label><input type="radio" name="q7" value="D"> D. The API key is valid</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>8. DNS (Domain Name System) is responsible for:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="A"> A. Storing passwords in the browser</label>
+                        <label><input type="radio" name="q8" value="B"> B. Resolving human-readable hostnames (like <code>api.open-meteo.com</code>) to IP addresses so TCP can connect</label>
+                        <label><input type="radio" name="q8" value="C"> C. Formatting JSON with pretty print</label>
+                        <label><input type="radio" name="q8" value="D"> D. Choosing HTTP status codes</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>9. In <code>https://api.example.com:8443/v1/users</code>, <code>8443</code> is:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="A"> A. The HTTP method</label>
+                        <label><input type="radio" name="q9" value="B"> B. The TCP port where the server process is listening</label>
+                        <label><input type="radio" name="q9" value="C"> C. The JSON field name</label>
+                        <label><input type="radio" name="q9" value="D"> D. The API version number</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>10. A REST API uses <code>DELETE /items/7</code>. The intended meaning is:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="A"> A. Delete item 7 from the server’s representation of the collection (remove that resource)</label>
+                        <label><input type="radio" name="q10" value="B"> B. Download item 7 as a file</label>
+                        <label><input type="radio" name="q10" value="C"> C. Validate item 7 without changing anything</label>
+                        <label><input type="radio" name="q10" value="D"> D. Encrypt item 7 in the database</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>11. <code>await fetch(url)</code> returns a Response object. Calling <code>response.json()</code> is needed because:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q11" value="A"> A. The network sends JavaScript objects directly</label>
+                        <label><input type="radio" name="q11" value="B"> B. The body arrives as bytes/text; <code>json()</code> parses that text into a JavaScript object (and is async because reading the body takes time)</label>
+                        <label><input type="radio" name="q11" value="C"> C. It starts the TCP connection</label>
+                        <label><input type="radio" name="q11" value="D"> D. It replaces CORS checks</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>12. Putting an API key in the URL query string (<code>?api_key=secret</code>) is often discouraged because:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q12" value="A"> A. Query strings cannot be sent over HTTPS</label>
+                        <label><input type="radio" name="q12" value="B"> B. URLs appear in logs, browser history, and referrer headers more easily than a dedicated header, increasing leak risk</label>
+                        <label><input type="radio" name="q12" value="C"> C. JSON does not allow query parameters</label>
+                        <label><input type="radio" name="q12" value="D"> D. GET requests never use query strings</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>13. Status <strong>500 Internal Server Error</strong> typically indicates:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q13" value="A"> A. The client forgot to send latitude and longitude</label>
+                        <label><input type="radio" name="q13" value="B"> B. Something went wrong inside the server while handling a request it accepted (bug, crash, unhandled exception)</label>
+                        <label><input type="radio" name="q13" value="C"> C. The resource was not found</label>
+                        <label><input type="radio" name="q13" value="D"> D. DNS failed on the client</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>14. <strong>Latency</strong> in an API call chain (browser → your backend → Open-Meteo) is best described as:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q14" value="A"> A. The number of JSON fields in the response</label>
+                        <label><input type="radio" name="q14" value="B"> B. The time delay between sending a request and receiving the response, including network travel and server processing</label>
+                        <label><input type="radio" name="q14" value="C"> C. The HTTP status code</label>
+                        <label><input type="radio" name="q14" value="D"> D. The size of the HTML page only</label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="question">
+                    <legend>15. Your backend hides Open-Meteo URLs and coordinates from the browser. A main security or design reason is:</legend>
+                    <div class="options">
+                        <label><input type="radio" name="q15" value="A"> A. Browsers cannot make HTTPS requests</label>
+                        <label><input type="radio" name="q15" value="B"> B. You control validation, rate limiting, and what third parties the client can trigger; you can change providers without updating every user’s browser</label>
+                        <label><input type="radio" name="q15" value="C"> C. Open-Meteo only accepts POST from Python</label>
+                        <label><input type="radio" name="q15" value="D"> D. JSON cannot be sent from JavaScript</label>
+                    </div>
+                </fieldset>
+
+                <div class="actions">
+                    <button type="submit">Submit</button>
+                    <button type="reset">Clear &amp; try again</button>
+                </div>
+            </form>
+
+            <div id="result" role="status" aria-live="polite"></div>
+        </section>
+
+        <section id="page-answers" class="page" aria-labelledby="tab-answers">
+            <div class="answer-list">
+                <article class="answer-item">
+                    <h2>1. Idempotency and safe methods</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> Idempotent means calling the operation multiple times has the same effect as calling it once. GET (and HEAD) are “safe”: they should not change server state. POST often creates new resources each time, so repeating it may not be idempotent unless the API is designed that way.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>2. 401 vs 403</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> 401 says “who are you?” — missing or invalid credentials. 403 says “I know who you are, but you may not do this” — authorization failed. Interviews love this distinction.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>3. 502 Bad Gateway</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> Your server is the gateway: it called another service (Open-Meteo) and could not get a good response. That is different from 500 (your own code broke) and 400 (the client sent bad input).</p>
+                </article>
+                <article class="answer-item">
+                    <h2>4. OPTIONS and CORS preflight</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> Cross-origin requests with certain methods or headers trigger a preflight OPTIONS request. The server answers with allowed origins and methods; the browser then sends the real POST if allowed.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>5. Origin</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> Same host but different port = different origin. That is why your frontend on 8000 calling the backend on 8001 needs CORS headers on the backend.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>6. GET and request bodies</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> REST convention puts read parameters in the query string. Caches and tools assume GET is safe and repeatable; bodies on GET are undefined in practice and break expectations.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>7. Content-Type</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> Headers describe the message. Content-Type on the request tells the server how to interpret the body. On the response, it tells the client what the body is (often application/json).</p>
+                </article>
+                <article class="answer-item">
+                    <h2>8. DNS</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> TCP needs an IP address. DNS maps names to IPs. HTTP and JSON sit above TCP; they do not replace DNS.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>9. Port number</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> A host can run many services; the port selects which process accepts the connection. Default HTTPS is 443; your local backend might use 8001.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>10. DELETE in REST</h2>
+                    <p><span class="letter">A</span> <strong>Correct.</strong> HTTP verbs suggest intent: GET read, POST create/submit, PUT/PATCH update, DELETE remove. The path identifies which resource.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>11. fetch and json()</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> fetch gives you headers and status immediately; the body is a stream you read once. json() parses UTF-8 text into objects. Check response.ok or status before assuming success.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>12. API keys in URLs</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> Secrets in URLs leak via server logs, proxies, and browser history. Headers like Authorization or a custom API-key header are common alternatives.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>13. 500 Internal Server Error</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> The request reached the server and looked valid enough to process, but the server failed internally. Fix the server code or dependencies; do not blame the client format unless you also return 400.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>14. Latency</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> Each hop (browser → backend → Open-Meteo) adds round-trip time and processing. Calling Open-Meteo once per city multiplies that work — a common design tradeoff.</p>
+                </article>
+                <article class="answer-item">
+                    <h2>15. Backend as BFF / gateway</h2>
+                    <p><span class="letter">B</span> <strong>Correct.</strong> The backend is a boundary: it enforces rules, hides upstream details, and keeps the frontend simple. This matches your weather app architecture.</p>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const answers = {
+            q1: "B", q2: "B", q3: "B", q4: "B", q5: "B",
+            q6: "B", q7: "B", q8: "B", q9: "B", q10: "A",
+            q11: "B", q12: "B", q13: "B", q14: "B", q15: "B"
+        };
+        const total = Object.keys(answers).length;
+        const form = document.getElementById("quiz");
+        const resultEl = document.getElementById("result");
+        const pageQuiz = document.getElementById("page-quiz");
+        const pageAnswers = document.getElementById("page-answers");
+        const tabQuiz = document.getElementById("tab-quiz");
+        const tabAnswers = document.getElementById("tab-answers");
+
+        function showPage(which) {
+            const quiz = which === "quiz";
+            pageQuiz.classList.toggle("active", quiz);
+            pageAnswers.classList.toggle("active", !quiz);
+            tabQuiz.classList.toggle("active", quiz);
+            tabAnswers.classList.toggle("active", !quiz);
+            tabQuiz.setAttribute("aria-current", quiz ? "page" : null);
+            tabAnswers.setAttribute("aria-current", quiz ? null : "page");
+        }
+
+        tabQuiz.addEventListener("click", function () { showPage("quiz"); });
+        tabAnswers.addEventListener("click", function () { showPage("answers"); });
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            let correct = 0;
+            let answered = 0;
+
+            for (const name of Object.keys(answers)) {
+                const picked = form.elements[name];
+                if (picked && picked.value) {
+                    answered += 1;
+                    if (picked.value === answers[name]) {
+                        correct += 1;
+                    }
+                }
+            }
+
+            const incorrect = answered - correct;
+            const skipped = total - answered;
+
+            let html = "<span class=\"correct\">Correct: " + correct + " / " + total + "</span><br>"
+                + "<span class=\"wrong\">Incorrect: " + incorrect + "</span>";
+            if (skipped > 0) {
+                html += "<br><span class=\"wrong\">Unanswered: " + skipped + "</span>";
+            }
+            html += "<p class=\"hint\">Scores do not show which questions were wrong. Open <strong>Page 2 — Answers</strong> to review explanations.</p>";
+            resultEl.innerHTML = html;
+            resultEl.classList.add("visible");
+            resultEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+
+        form.addEventListener("reset", function () {
+            resultEl.classList.remove("visible");
+            resultEl.innerHTML = "";
+        });
+    </script>
+</body>
+</html>

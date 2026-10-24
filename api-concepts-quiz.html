@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API &amp; Web Concepts Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+            line-height: 1.5;
+            color: #16324f;
+            background: linear-gradient(180deg, #e7f3ff 0%, #f7fbff 100%);
+            min-height: 100vh;
+            padding: 32px 16px 48px;
+        }
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .intro {
+            color: #46627a;
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+        }
+        form { display: flex; flex-direction: column; gap: 24px; }
+        .question {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 16px rgba(40, 80, 110, 0.06);
+        }
+        .question legend {
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding: 0;
+        }
+        .options { display: flex; flex-direction: column; gap: 8px; }
+        .options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .options input { margin-top: 4px; flex-shrink: 0; }
+        .actions {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        button[type="submit"] {
+            padding: 12px 24px;
+            border: 0;
+            border-radius: 999px;
+            background: #0f6e8c;
+            color: #fff;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover { background: #0c5b74; }
+        button[type="reset"] {
+            padding: 12px 20px;
+            border: 1px solid #b8d4e3;
+            border-radius: 999px;
+            background: #fff;
+            color: #24516a;
+            font: inherit;
+            cursor: pointer;
+        }
+        #result {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        #result.visible { display: block; }
+        #result .correct { color: #1a6b3a; }
+        #result .wrong { color: #8a3b3b; }
+        #result .hint {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #5d7690;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>API &amp; web concepts — 15 questions</h1>
+        <p class="intro">Pick one answer per question. Submit when you are done. You will only see how many were correct and incorrect — no answer key on this page.</p>
+
+        <form id="quiz">
+            <fieldset class="question">
+                <legend>1. What does HTTP mainly define?</legend>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="A"> A. How two programs agree on voltage on a network cable</label>
+                    <label><input type="radio" name="q1" value="B"> B. The format of requests and responses between a client and a server</label>
+                    <label><input type="radio" name="q1" value="C"> C. How files are stored on a hard disk</label>
+                    <label><input type="radio" name="q1" value="D"> D. How a CPU schedules threads</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>2. TCP’s main job in a web request is:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="A"> A. To encrypt all website content automatically</label>
+                    <label><input type="radio" name="q2" value="B"> B. To provide a reliable ordered byte stream between two endpoints (IP + port)</label>
+                    <label><input type="radio" name="q2" value="C"> C. To translate domain names to IP addresses</label>
+                    <label><input type="radio" name="q2" value="D"> D. To parse JSON</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>3. In a URL like <code>https://api.example.com/v1/users?page=2</code>, <code>page=2</code> is:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="A"> A. Part of the HTTP request body</label>
+                    <label><input type="radio" name="q3" value="B"> B. A query string parameter</label>
+                    <label><input type="radio" name="q3" value="C"> C. A TCP port number</label>
+                    <label><input type="radio" name="q3" value="D"> D. An HTTP header</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>4. Which HTTP method is most appropriate for <strong>reading</strong> data without changing server state (typical REST style)?</legend>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="A"> A. POST</label>
+                    <label><input type="radio" name="q4" value="B"> B. GET</label>
+                    <label><input type="radio" name="q4" value="C"> C. DELETE</label>
+                    <label><input type="radio" name="q4" value="D"> D. PATCH</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>5. Which HTTP method is commonly used when the client sends a <strong>JSON body</strong> to create or submit data?</legend>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="A"> A. GET</label>
+                    <label><input type="radio" name="q5" value="B"> B. HEAD</label>
+                    <label><input type="radio" name="q5" value="C"> C. POST</label>
+                    <label><input type="radio" name="q5" value="D"> D. OPTIONS</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>6. A successful HTTP response usually has status code:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="A"> A. 404</label>
+                    <label><input type="radio" name="q6" value="B"> B. 500</label>
+                    <label><input type="radio" name="q6" value="C"> C. 200</label>
+                    <label><input type="radio" name="q6" value="D"> D. 301</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>7. Status code <strong>404</strong> generally means:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="A"> A. The server crashed</label>
+                    <label><input type="radio" name="q7" value="B"> B. The client sent invalid JSON</label>
+                    <label><input type="radio" name="q7" value="C"> C. The requested resource/path was not found</label>
+                    <label><input type="radio" name="q7" value="D"> D. The request was successful</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>8. Status code <strong>400</strong> often means:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="A"> A. Unauthorized — login required</label>
+                    <label><input type="radio" name="q8" value="B"> B. Bad request — the client sent something the server could not accept</label>
+                    <label><input type="radio" name="q8" value="C"> C. Gateway timeout</label>
+                    <label><input type="radio" name="q8" value="D"> D. Resource moved permanently</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>9. <strong>HTTPS</strong> adds what on top of HTTP?</legend>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="A"> A. Faster TCP connections only</label>
+                    <label><input type="radio" name="q9" value="B"> B. Encryption (and usually server identity verification) for the HTTP messages</label>
+                    <label><input type="radio" name="q9" value="C"> C. Automatic JSON parsing in the browser</label>
+                    <label><input type="radio" name="q9" value="D"> D. A guarantee that the API never returns errors</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>10. <strong>JSON</strong> is best described as:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="A"> A. A programming language</label>
+                    <label><input type="radio" name="q10" value="B"> B. A text format for structured data (objects, arrays, strings, numbers)</label>
+                    <label><input type="radio" name="q10" value="C"> C. A database query language</label>
+                    <label><input type="radio" name="q10" value="D"> D. A replacement for TCP</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>11. In REST-style APIs, a “resource” is often identified by:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="A"> A. Only the HTTP status code</label>
+                    <label><input type="radio" name="q11" value="B"> B. A URL path (and sometimes query parameters), plus the HTTP method</label>
+                    <label><input type="radio" name="q11" value="C"> C. The MAC address of the client</label>
+                    <label><input type="radio" name="q11" value="D"> D. The font used on the webpage</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>12. <strong>Stateless</strong> in REST means:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="A"> A. The server never stores data in a database</label>
+                    <label><input type="radio" name="q12" value="B"> B. Each request should carry enough information; the server does not rely on remembering previous requests for the API contract</label>
+                    <label><input type="radio" name="q12" value="C"> C. The client cannot send cookies</label>
+                    <label><input type="radio" name="q12" value="D"> D. Only GET requests are allowed</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>13. <strong>CORS</strong> is primarily about:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="A"> A. Compressing images on the server</label>
+                    <label><input type="radio" name="q13" value="B"> B. Browser security rules for JavaScript on one origin calling APIs on another origin</label>
+                    <label><input type="radio" name="q13" value="C"> C. Choosing which TCP port to use</label>
+                    <label><input type="radio" name="q13" value="D"> D. Validating JSON schema on the server</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>14. <strong>127.0.0.1</strong> (localhost) means:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="A"> A. A public weather API</label>
+                    <label><input type="radio" name="q14" value="B"> B. Your own machine — services there are reached on your computer, not on the internet</label>
+                    <label><input type="radio" name="q14" value="C"> C. The default HTTPS port</label>
+                    <label><input type="radio" name="q14" value="D"> D. A type of JSON field</label>
+                </div>
+            </fieldset>
+
+            <fieldset class="question">
+                <legend>15. <strong>Async</strong> <code>fetch()</code> in JavaScript is used because:</legend>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="A"> A. Network requests finish instantly</label>
+                    <label><input type="radio" name="q15" value="B"> B. Waiting for the network would freeze the page if done synchronously; async lets other work continue until the response arrives</label>
+                    <label><input type="radio" name="q15" value="C"> C. It replaces the need for HTTP</label>
+                    <label><input type="radio" name="q15" value="D"> D. It only works with POST, not GET</label>
+                </div>
+            </fieldset>
+
+            <div class="actions">
+                <button type="submit">Submit</button>
+                <button type="reset">Clear &amp; try again</button>
+            </div>
+        </form>
+
+        <div id="result" role="status" aria-live="polite"></div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: "B", q2: "B", q3: "B", q4: "B", q5: "C",
+            q6: "C", q7: "C", q8: "B", q9: "B", q10: "B",
+            q11: "B", q12: "B", q13: "B", q14: "B", q15: "B"
+        };
+        const total = Object.keys(answers).length;
+        const resultEl = document.getElementById("result");
+        const form = document.getElementById("quiz");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            let correct = 0;
+            let answered = 0;
+
+            for (const name of Object.keys(answers)) {
+                const picked = form.elements[name];
+                if (picked && picked.value) {
+                    answered += 1;
+                    if (picked.value === answers[name]) {
+                        correct += 1;
+                    }
+                }
+            }
+
+            const incorrect = answered - correct;
+            const skipped = total - answered;
+
+            let html = "<span class=\"correct\">Correct: " + correct + " / " + total + "</span><br>"
+                + "<span class=\"wrong\">Incorrect: " + incorrect + "</span>";
+            if (skipped > 0) {
+                html += "<br><span class=\"wrong\">Unanswered: " + skipped + "</span>";
+            }
+            html += "<p class=\"hint\">This page does not show which questions were wrong. Use your chat answer key to review.</p>";
+            resultEl.innerHTML = html;
+            resultEl.classList.add("visible");
+            resultEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
+
+        form.addEventListener("reset", function () {
+            resultEl.classList.remove("visible");
+            resultEl.innerHTML = "";
+        });
+    </script>
+</body>
+</html>
