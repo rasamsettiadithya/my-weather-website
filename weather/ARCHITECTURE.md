@@ -82,7 +82,7 @@ The local control panel stays on your computer. Render runs one free Python web 
 
 That process listens on `0.0.0.0` and Render's `PORT`. It serves the files in `frontend/` and answers `GET` and `POST /weather` with the same JSON as port 8001. Opening `/` redirects to `/weather.html`.
 
-On localhost the page still posts to `http://127.0.0.1:8001/weather`. On Render the page posts to `/weather` on the same site. The live URL is filled in after the free web service is created.
+On localhost the page still posts to `http://127.0.0.1:8001/weather`. On Render the page posts to `/weather` on the same site. The live site is [https://my-weather-website-app.onrender.com](https://my-weather-website-app.onrender.com).
 
 ## Frontend calling the backend
 
