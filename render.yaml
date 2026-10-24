@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: my-weather-website-app
+    runtime: python
+    plan: free
+    buildCommand: "true"
+    startCommand: python3 weather/runtime/render_server.py

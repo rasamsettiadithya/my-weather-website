@@ -7,6 +7,7 @@ The page shows temperatures for the cities you check, and which of those cities 
 ```text
 weather/
   frontend/                 the page the browser shows
+    index.html              sends / to the weather page
     weather.html            checkboxes, cards, and the call table
     weather.css             styles
     weather.js              sends the city names and paints the JSON
@@ -15,6 +16,7 @@ weather/
   runtime/
     frontend_server.py      serves the page on port 8000
     backend_server.py       answers /weather on port 8001
+    render_server.py        serves the page and /weather for Render
     control.py              starts and stops those two programs
     server.py               opens the same control panel
   start.html                Start, Stop, and the clickable frontend link
@@ -74,9 +76,17 @@ weather.html
 
 The comparison stays on the backend. The page only displays what comes back.
 
+## Render
+
+The local control panel stays on your computer. Render runs one free Python web service from [render.yaml](../render.yaml). The start command is `python3 weather/runtime/render_server.py`.
+
+That process listens on `0.0.0.0` and Render's `PORT`. It serves the files in `frontend/` and answers `GET` and `POST /weather` with the same JSON as port 8001. Opening `/` redirects to `/weather.html`.
+
+On localhost the page still posts to `http://127.0.0.1:8001/weather`. On Render the page posts to `/weather` on the same site. The live URL is filled in after the free web service is created.
+
 ## Frontend calling the backend
 
-Protocol: HTTP. Method: POST. URL: `http://127.0.0.1:8001/weather`.
+Protocol: HTTP. Method: POST. URL on your computer: `http://127.0.0.1:8001/weather`. URL on Render: `/weather`.
 
 Request body:
 

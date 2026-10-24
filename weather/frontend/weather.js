@@ -7,7 +7,8 @@ const responseJson = document.querySelector("#response-json");
 const callTableBody = document.querySelector("#call-table tbody");
 const cards = document.querySelectorAll(".city-card");
 const cityInputs = document.querySelectorAll("input[name='city']");
-const backendUrl = "http://127.0.0.1:8001/weather";
+const onLocalhost = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+const backendUrl = onLocalhost ? "http://127.0.0.1:8001/weather" : "/weather";
 
 button.addEventListener("click", showWeather);
 for (const input of cityInputs) {
